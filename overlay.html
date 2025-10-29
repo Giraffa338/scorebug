@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Score Overlay</title>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: transparent;
+    }
+    #scoreboard {
+        display: inline-flex;
+        align-items: center;
+        padding: 8px 20px;
+        background: rgba(0,0,0,0.6);
+        color: white;
+        font-size: 32px;
+        border-radius: 12px;
+    }
+    #scoreboard span {
+        margin: 0 10px;
+    }
+    #editPanel {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        background: #222;
+        padding: 15px;
+        border-radius: 10px;
+        color: white;
+        display: none;
+    }
+    label { display: block; margin-top: 5px; }
+    input { width: 150px; margin-bottom: 10px; }
+    button {
+        margin-top: 8px;
+        padding: 5px 10px;
+    }
+</style>
+</head>
+<body>
+
+<div id="scoreboard">
+    <span id="team1">Team 1</span>
+    <span id="score1">0</span>
+    <span>-</span>
+    <span id="score2">0</span>
+    <span id="team2">Team 2</span>
+</div>
+
+<div id="editPanel">
+    <label>Team 1: <input id="inputTeam1" type="text"></label>
+    <label>Punteggio 1: <input id="inputScore1" type="number"></label>
+    <label>Punteggio 2: <input id="inputScore2" type="number"></label>
+    <label>Team 2: <input id="inputTeam2" type="text"></label>
+    <button onclick="updateScore()">Applica</button>
+</div>
+
+<button style="position:fixed; bottom:10px; right:10px;" onclick="toggleEdit()">⚙️</button>
+
+<script>
+function toggleEdit() {
+    const panel = document.getElementById("editPanel");
+    panel.style.display = panel.style.display === "none" ? "block" : "none";
+}
+
+function updateScore() {
+    document.getElementById("team1").innerText = document.getElementById("inputTeam1").value;
+    document.getElementById("score1").innerText = document.getElementById("inputScore1").value;
+    document.getElementById("score2").innerText = document.getElementById("inputScore2").value;
+    document.getElementById("team2").innerText = document.getElementById("inputTeam2").value;
+}
+</script>
+
+</body>
+</html>
