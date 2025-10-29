@@ -57,7 +57,26 @@
     <button onclick="updateScore()">Applica</button>
 </div>
 
-<button style="position:fixed; bottom:10px; right:10px;" onclick="toggleEdit()">⚙️</button>
+<button id="gearBtn" onclick="toggleEdit()">⚙️</button>
+
+<style>
+#gearBtn {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    font-size: 28px;
+    padding: 8px 12px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    cursor: pointer;
+}
+#gearBtn:hover {
+    background: rgba(0,0,0,0.8);
+}
+</style>
+
 
 <script>
 function toggleEdit() {
