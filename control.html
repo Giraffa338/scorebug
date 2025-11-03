@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Controllo Score</title>
+<style>
+body { font-family: Arial; padding: 20px; font-size: 18px; }
+input { margin: 6px; padding: 6px; width: 160px; }
+button { padding: 8px 12px; margin: 4px; font-size: 18px; }
+</style>
+</head>
+<body>
+
+<h2>Controllo Punteggio</h2>
+
+<label>Team 1 <input id="t1"></label><br>
+<button onclick="s1(-1)">-1</button><button onclick="s1(1)">+1</button>
+<input id="p1" type="number"><br><br>
+
+<label>Team 2 <input id="t2"></label><br>
+<button onclick="s2(-1)">-1</button><button onclick="s2(1)">+1</button>
+<input id="p2" type="number"><br><br>
+
+<button onclick="save()">AGGIORNA</button>
+
+<script>
+let jsonUrl = "score.json";
+
+async function load() {
+  const r = await fetch(jsonUrl);
+  const d = await r.json();
+  t1.value = d.team1; p1.value = d.score1;
+  p2.value = d.score2; t2.value = d.team2;
+}
+
+function s1(x){ p1.value = Number(p1.value) + x; }
+function s2(x){ p2.value = Number(p2.value) + x; }
+
+async function save() {
+  const file = {
+    team1: t1.value,
+    score1: Number(p1.value),
+    score2: Number(p2.value),
+    team2: t2.value
+  };
+  await fetch(jsonUrl, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(file, null, 2)
+  });
+  alert("Aggiornato!");
+}
+
+load();
+</script>
+
+</body>
+</html>
