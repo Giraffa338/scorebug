@@ -15,40 +15,39 @@ button { padding: 12px 18px; margin: 6px; font-size: 20px; }
 <h2>Controllo Score (Remote)</h2>
 
 <label>Team 1:</label><br>
-<input id="t1" value="Team 1"><br>
+<input id="t1" value="TEAM 1"><br>
 <button onclick="s1(-1)">-1</button>
 <button onclick="s1(1)">+1</button>
 <input id="p1" type="number" value="0"><br><br>
 
 <label>Team 2:</label><br>
-<input id="t2" value="Team 2"><br>
+<input id="t2" value="TEAM 2"><br>
 <button onclick="s2(-1)">-1</button>
 <button onclick="s2(1)">+1</button>
 <input id="p2" type="number" value="0"><br><br>
 
-<button onclick="send()">AGGIORNA OVERLAY</button>
+<button onclick="send()">AGGIORNA</button>
 <button onclick="resetAll()">RESET</button>
-<button onclick="swapTeams()">SCAMBIA SQUADRE</button>
+<button onclick="swapTeams()">SCAMBIA TEAMS</button>
 
 <script>
-const overlayWindow = () => window.parent || window.opener || window;
+const channel = new BroadcastChannel("score-update");
 
 function send() {
-  overlayWindow().postMessage({
-    type: "updateScore",
+  channel.postMessage({
     team1: t1.value,
     score1: Number(p1.value),
     score2: Number(p2.value),
     team2: t2.value
-  }, "*");
+  });
 }
 
 function s1(v){ p1.value = Number(p1.value) + v; send(); }
 function s2(v){ p2.value = Number(p2.value) + v; send(); }
 
 function resetAll(){
-  t1.value="Team 1"; p1.value=0;
-  t2.value="Team 2"; p2.value=0;
+  t1.value="TEAM 1"; p1.value=0;
+  t2.value="TEAM 2"; p2.value=0;
   send();
 }
 
