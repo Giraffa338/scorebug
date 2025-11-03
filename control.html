@@ -2,58 +2,43 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Controllo Score</title>
+<title>Score Controller</title>
 <style>
-body { font-family: Arial; padding: 25px; font-size: 22px; }
-input { padding: 6px; font-size: 20px; width: 200px; margin: 8px 0; }
-button { padding: 12px 18px; margin: 6px; font-size: 20px; }
+body { font-family: Arial; padding: 20px; font-size: 18px; }
+input { padding: 6px; margin: 6px; width: 180px; }
+button { padding: 6px 12px; margin: 6px; }
 </style>
 </head>
-
 <body>
 
-<h2>Controllo Score</h2>
+<h2>Controllo Punteggio</h2>
 
-<label>Team 1:</label><br>
-<input id="t1" value="TEAM 1"><br>
-<button onclick="p1.value--, save()">-1</button>
-<button onclick="p1.value++, save()">+1</button>
-<input id="p1" type="number" value="0"><br><br>
+<label>Team 1: <input id="team1" type="text" value="TEAM 1"></label><br>
+<label>Punteggio 1: <input id="score1" type="number" value="0"></label>
+<button onclick="score1.value=Number(score1.value)-1">-1</button>
+<button onclick="score1.value=Number(score1.value)+1">+1</button><br><br>
 
-<label>Team 2:</label><br>
-<input id="t2" value="TEAM 2"><br>
-<button onclick="p2.value--, save()">-1</button>
-<button onclick="p2.value++, save()">+1</button>
-<input id="p2" type="number" value="0"><br><br>
+<label>Team 2: <input id="team2" type="text" value="TEAM 2"></label><br>
+<label>Punteggio 2: <input id="score2" type="number" value="0"></label>
+<button onclick="score2.value=Number(score2.value)-1">-1</button>
+<button onclick="score2.value=Number(score2.value)+1">+1</button><br><br>
 
-<button onclick="save()">AGGIORNA</button>
-<button onclick="resetAll()">RESET</button>
-<button onclick="swapTeams()">SCAMBIA</button>
+<button onclick="generate()">Genera Link Overlay</button>
+
+<p id="link"></p>
 
 <script>
-function save() {
-  localStorage.setItem("scoreData", JSON.stringify({
-    team1: t1.value,
-    score1: Number(p1.value),
-    score2: Number(p2.value),
-    team2: t2.value
-  }));
-}
+function generate() {
+  const base = "https://giraffa338.github.io/scorebug/overlay.html";
+  const t1 = encodeURIComponent(document.getElementById("team1").value);
+  const s1 = encodeURIComponent(document.getElementById("score1").value);
+  const t2 = encodeURIComponent(document.getElementById("team2").value);
+  const s2 = encodeURIComponent(document.getElementById("score2").value);
 
-function resetAll(){
-  t1.value="TEAM 1"; p1.value=0;
-  t2.value="TEAM 2"; p2.value=0;
-  save();
+  const url = `${base}?team1=${t1}&score1=${s1}&score2=${s2}&team2=${t2}`;
+  document.getElementById("link").innerHTML = `<a href="${url}" target="_blank">${url}</a><br><small>Copia questo link in CameraFi Live Web Overlay</small>`;
 }
-
-function swapTeams(){
-  let a=t1.value, b=p1.value;
-  t1.value=t2.value; p1.value=p2.value;
-  t2.value=a; p2.value=b;
-  save();
-}
-
-save();
 </script>
+
 </body>
 </html>
