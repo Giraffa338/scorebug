@@ -12,8 +12,8 @@ body {
 
 #scorebar {
   position: absolute;
-  top: 18px;
-  left: 18px;
+  top: 10px;
+  left: 10px;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -43,17 +43,15 @@ body {
 </div>
 
 <script>
-function updateOverlay() {
-  const d = JSON.parse(localStorage.getItem("scoreData") || "{}");
-  if (!d.team1) return;
-  team1.textContent = d.team1.toUpperCase();
-  team2.textContent = d.team2.toUpperCase();
-  score1.textContent = d.score1;
-  score2.textContent = d.score2;
+function getParam(name) {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(name);
 }
 
-updateOverlay();
-setInterval(updateOverlay, 500);
+document.getElementById("team1").textContent = (getParam("team1") || "TEAM 1").toUpperCase();
+document.getElementById("team2").textContent = (getParam("team2") || "TEAM 2").toUpperCase();
+document.getElementById("score1").textContent = getParam("score1") || 0;
+document.getElementById("score2").textContent = getParam("score2") || 0;
 </script>
 
 </body>
