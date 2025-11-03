@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<title>Score Overlay</title>
+<title>Overlay</title>
 <style>
 body {
   margin: 0;
@@ -10,46 +10,11 @@ body {
   font-family: Arial, sans-serif;
 }
 
-#scoreboard {
-  display: inline-flex;
+#scorebar {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
   align-items: center;
-  padding: 8px 20px;
-  border-radius: 14px;
-  border: 3px solid rgba(255,255,255,0.85);
-  background: rgba(0,0,0,0.40);
-  backdrop-filter: blur(6px);
-  color: white;
-  font-size: 40px;
-}
-
-.block {
-  padding: 0 12px;
-}
-</style>
-</head>
-<body>
-
-<div id="scoreboard">
-  <span class="block" id="team1">Team 1</span>
-  <span class="block" id="score1">0</span>
-  <span class="block">-</span>
-  <span class="block" id="score2">0</span>
-  <span class="block" id="team2">Team 2</span>
-</div>
-
-<script>
-async function loadScore() {
-  const res = await fetch("score.json?" + Date.now());
-  const data = await res.json();
-  team1.innerText = data.team1;
-  score1.innerText = data.score1;
-  score2.innerText = data.score2;
-  team2.innerText = data.team2;
-}
-
-loadScore();
-setInterval(loadScore, 1500); // aggiorna ogni 1.5s
-</script>
-
-</body>
-</html>
+  gap
