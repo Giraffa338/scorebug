@@ -17,4 +17,44 @@ body {
   transform: translateX(-50%);
   display: flex;
   align-items: center;
-  gap
+  gap: 22px;
+  padding: 14px 28px;
+  border-radius: 18px;
+  border: 3px solid rgba(255,255,255,0.85);
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(6px);
+  color: #fff;
+  font-size: 42px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.team { padding: 0 10px; }
+.score { min-width: 45px; text-align: center; }
+</style>
+</head>
+
+<body>
+
+<div id="scorebar">
+  <span id="team1" class="team">TEAM 1</span>
+  <span id="score1" class="score">0</span>
+  <span>-</span>
+  <span id="score2" class="score">0</span>
+  <span id="team2" class="team">TEAM 2</span>
+</div>
+
+<script>
+window.addEventListener("message", (e) => {
+  if (!e.data || typeof e.data !== "object") return;
+  if (e.data.type === "updateScore") {
+    document.getElementById("team1").innerText = e.data.team1.toUpperCase();
+    document.getElementById("team2").innerText = e.data.team2.toUpperCase();
+    document.getElementById("score1").innerText = e.data.score1;
+    document.getElementById("score2").innerText = e.data.score2;
+  }
+});
+</script>
+
+</body>
+</html>
